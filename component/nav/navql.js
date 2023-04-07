@@ -7,14 +7,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SignUp from '../auth/SignUp';
 import Login from '../auth/Login';
+const Stack = createNativeStackNavigator();
 
+function Navql() {
 
-export default function Navql() {
-
-    const Stack = createNativeStackNavigator();
-
+    
     return (
-        <NavigationContainer>
+        
             <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
                 <Stack.Screen name="Login" component={Login} />
                 {/* <Stack.Screen name="Home" component={BottomTabNavigator} /> */}
@@ -24,6 +23,12 @@ export default function Navql() {
                 {/* <Stack.Screen name="Posts" component={PostScreen} /> */}
                 {/* <Stack.Screen name="Update" component={UpdatePost} /> */}
             </Stack.Navigator>
-        </NavigationContainer>
+        
     )
 }
+const MainNav = () => {
+    return(<NavigationContainer>
+        <Navql/>
+    </NavigationContainer>)
+}
+export default MainNav;

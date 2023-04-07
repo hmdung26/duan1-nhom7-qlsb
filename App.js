@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Navql from './component/nav/navql';
+
+import MainNav from './component/nav/navql';
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-        <Navql/>
-    </View>
+    
+       <MainNav></MainNav>
+    
   );
 }
 
