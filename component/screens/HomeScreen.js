@@ -38,12 +38,13 @@ export default function HomeScreen() {
 
     const getListSP = async () => {
         console.log('get danh sách');
-         getDocs(collection(db, "listSan")).then(getSan => {
-          getSan.forEach((listSan)=>{
-            setdssp(listSan.data())
-          });
-          console.log(dssp);
-        })
+        const getdataSan = await getDocs(collection(db, "listSan"))
+        const getallSan = getdataSan.docs.map((doc)=>({
+          ...doc.data(),
+          id: doc.id,
+        }))
+        setdssp(getallSan);
+        
       }
 
 
