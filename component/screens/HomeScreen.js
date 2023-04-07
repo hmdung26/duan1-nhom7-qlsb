@@ -13,29 +13,34 @@ import {
   Alert,
   Image,
 } from "react-native";
+
 import React, { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "f";
+import { app } from "../firebase/firebase.key";
+
 import {
   Firestore,
   collection,
   getDocs,
   getFirestore,
-} from "firebase/firestore";
+} from 'firebase/firestore';
+import Icon from 'react-native-vector-icons/Ionicons'
+import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen() {
-    const navigation = useNavigation();
-    const app = initializeApp(firebaseConfig);
+    
+    
     const db = getFirestore(app)
+
     const [isLoading, setisLoading] = useState(true);
     const [dssp, setdssp] = useState([]);
     const [reload, setreload] = useState(false);
+    const isFocused = useIsFocused();
 
     const getListSP = async () => {
         console.log('get danh sách');
          getDocs(collection(db, "listSan")).then(getSan => {
           getSan.forEach((listSan)=>{
-            dssp.push({...listSan.data(), id:listSan.id})
+            setdssp(listSan.data())
           });
           console.log(dssp);
         })
@@ -102,9 +107,7 @@ export default function HomeScreen() {
       props.navigation.navigate("Update", { item_post: item });
     };
 
-    useEffect(()=>{
-        getListSP()
-    },[])
+    
     return (
       <View style={styles.header}>
         <ScrollView>
@@ -140,7 +143,7 @@ export default function HomeScreen() {
             ></View>
 
             <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity onPress={Comment} style={{ marginLeft: 50 }}>
+              <TouchableOpacity  style={{ marginLeft: 50 }}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -165,7 +168,7 @@ export default function HomeScreen() {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ marginLeft: 50 }} onPress={ShareList}>
+              <TouchableOpacity style={{ marginLeft: 50 }}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -197,6 +200,10 @@ export default function HomeScreen() {
       </View>
     );
   };
+  useEffect(()=>{
+    console.log('get')
+      getListSP()
+  },[isFocused])
 
   return (
     <View style={{ backgroundColor: "#E5E7E9", height: 600 }}>
@@ -212,9 +219,7 @@ export default function HomeScreen() {
         >
           <FlatList
             data={dssp}
-            keyExtractor={(item_ds) => {
-              return item_ds.id;
-            }}
+            keyExtractor={(item_ds,index) => index.toString()}
             renderItem={renderDs}
           />
         </ScrollView>
