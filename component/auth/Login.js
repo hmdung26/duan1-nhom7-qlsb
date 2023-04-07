@@ -15,6 +15,10 @@ export default function Login({ navigation }) {
   const SingUp = () => {
     navigation.navigate("Sign Up");
   };
+  const SignIn = () => {
+    navigation.navigate("Home");
+  };
+
   console.log("Đã vào Login");
   return (
     <View style={styles.tieude}>
@@ -111,6 +115,7 @@ export default function Login({ navigation }) {
           <View style={{ justifyContent: "center", padding: 7 }}>
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={SignIn}
               style={{
                 backgroundColor: "#5BC0F8",
                 padding: 16,
@@ -118,6 +123,7 @@ export default function Login({ navigation }) {
                 alignItems: "center",
                 marginVertical: 10,
                 borderRadius: 20,
+                
               }}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>LOGIN</Text>
